@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pagination/model/post_model.dart';
 import 'package:pagination/repository/post_repository.dart';
 
-class PaginationController with ChangeNotifier {
+class PostProvider with ChangeNotifier {
   final _postRepo = PostRepository();
 
   final List<PostModel> _posts = [];
