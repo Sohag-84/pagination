@@ -36,10 +36,23 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Consumer<PostProvider>(
           builder: (context, value, child) {
             return NotificationListener(
+              onNotification: (ScrollNotification notification) {
+                if (notification.metrics.pixels ==
+                        notification.metrics.maxScrollExtent &&
+                    !postProvider.isLoading) {
+                  postProvider.fetchedPosts();
+                }
+                return false;
+              },
               child: ListView.builder(
-                itemCount: postProvider.posts.length,
+                itemCount:
+                    postProvider.posts.length + (postProvider.hasMore ? 1 : 0),
                 itemBuilder: (BuildContext context, int index) {
+                  if (index == postProvider.posts.length) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
                   final post = postProvider.posts[index];
+
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Card(

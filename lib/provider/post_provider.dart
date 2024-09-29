@@ -9,13 +9,17 @@ class PostProvider with ChangeNotifier {
 
   final List<PostModel> _posts = [];
   bool _isLoading = false;
+  bool _hasMore = true;
   int _page = 1;
-  final int _limit = 10;
+  final int _limit = 100;
 
   List<PostModel> get posts => _posts;
   bool get isLoading => _isLoading;
+  bool get hasMore => _hasMore;
 
   Future<void> fetchedPosts() async {
+    if (_isLoading || !_hasMore) return;
+
     _isLoading = true;
     notifyListeners();
 
@@ -25,6 +29,7 @@ class PostProvider with ChangeNotifier {
         limit: _limit,
       );
       if (newPosts.isEmpty) {
+        _hasMore = false;
       } else {
         _posts.addAll(newPosts);
         _page++;
