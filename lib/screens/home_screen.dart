@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:pagination/provider/post_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -49,7 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     postProvider.posts.length + (postProvider.hasMore ? 1 : 0),
                 itemBuilder: (BuildContext context, int index) {
                   if (index == postProvider.posts.length) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: Colors.green,
+                        size: 40,
+                      ),
+                    );
                   }
                   final post = postProvider.posts[index];
 

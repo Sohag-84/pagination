@@ -11,7 +11,7 @@ class PostProvider with ChangeNotifier {
   bool _isLoading = false;
   bool _hasMore = true;
   int _page = 1;
-  final int _limit = 100;
+  final int _limit = 10;
 
   List<PostModel> get posts => _posts;
   bool get isLoading => _isLoading;
